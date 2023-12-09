@@ -42,8 +42,10 @@ model NFTContract {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
-  project Project @relation(fields: [projectSlug], references: [slug])
-  // NFT     NFT[]
+  project         Project           @relation(fields: [projectSlug], references: [slug])
+  outputSchema    OutputSchema[]
+  nftEventFilters NFTEventFilters[]
+  nfts            NFT[]
 
   @@id([contractAddress, chainId])
 }
@@ -55,6 +57,8 @@ model NFTEventFilters {
   eventName       String
   parameterName   String
 
+  nftContract NFTContract @relation(fields: [contractAddress, chainId], references: [contractAddress, chainId])
+
   @@id([contractAddress, chainId, eventHash, parameterName])
 }
 
@@ -64,6 +68,8 @@ model OutputSchema {
   mappingName     String
   jsonName        String
 
+  nftContract NFTContract @relation(fields: [contractAddress, chainId], references: [contractAddress, chainId])
+
   @@id([contractAddress, chainId, mappingName])
 }
 
@@ -72,6 +78,10 @@ model NFT {
   chainId         Int
   tokenId         String
   isActive        Boolean @default(true)
+
+  nftContract NFTContract @relation(fields: [contractAddress, chainId], references: [contractAddress, chainId])
+
+  nftDataPoint NFTDataPoint[]
 
   @@id([contractAddress, chainId, tokenId])
 }
@@ -84,6 +94,8 @@ model NFTDataPoint {
   blockTimestamp  Int
   traitName       String
   traitValue      String
+
+  nft NFT @relation(fields: [contractAddress, chainId, tokenId], references: [contractAddress, chainId, tokenId])
 
   @@id([contractAddress, chainId, tokenId, traitName])
 }

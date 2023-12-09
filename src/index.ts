@@ -1,6 +1,8 @@
 import dotenv from "dotenv";
 import express from "express";
 import eventListener from "./EventListener";
+import projectRouter from "./routers/projectRouter";
+import nftContractRouter from "./routers/nftContractRouter";
 
 dotenv.config();
 
@@ -24,6 +26,7 @@ app.get("/", (req, res) => {
  * he will also be provided our api to easily interact with the smart contract if he wants to use in game
  */
 
-console.log(eventListener);
+app.use("/projects", projectRouter);
+app.use("/nft-contracts", nftContractRouter);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -4,8 +4,6 @@ import { onlyAuthorized } from "../protectionMiddlewares";
 import { validate } from "../middlewares";
 import { PrismaClient } from "@prisma/client";
 import { uploadJSONtoIPFS } from "../helpers";
-import eventListener from "../EventListener";
-import { Abi } from "viem";
 
 const router = Router();
 

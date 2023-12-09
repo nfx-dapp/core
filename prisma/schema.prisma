@@ -35,6 +35,7 @@ model NFTContract {
   name              String
   contractAddress   String
   chainId           Int
+  version           String
   projectSlug       String
   abiCID            String
   metadataSchemaCID String

@@ -4,6 +4,8 @@ import { onlyAuthorized } from "../protectionMiddlewares";
 import { validate } from "../middlewares";
 import { PrismaClient } from "@prisma/client";
 import { uploadJSONtoIPFS } from "../helpers";
+import eventListener from "../EventListener";
+import { Abi } from "viem";
 
 const router = Router();
 
@@ -16,12 +18,20 @@ router.post(
   body("address").isEthereumAddress(),
   body("abi").isJSON(),
   body("metadataSchema").isJSON(),
+  body("version").isString(),
   body("projectSlug").isSlug(),
   body("chainId").isNumeric(),
   validate,
   async (req, res) => {
-    const { name, address, projectSlug, chainId, abi, metadataSchema } =
-      req.body;
+    const {
+      name,
+      address,
+      projectSlug,
+      chainId,
+      abi,
+      metadataSchema,
+      version,
+    } = req.body;
 
     const project = await prisma.project.findUnique({
       where: { slug: projectSlug },
@@ -54,6 +64,7 @@ router.post(
         project: { connect: { slug: projectSlug } },
         abiCID,
         metadataSchemaCID,
+        version,
       },
     });
 

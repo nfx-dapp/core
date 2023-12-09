@@ -111,6 +111,7 @@ class EventListener {
     }
 
     console.log(data);
+    console.log(outputData);
   }
 }
 

@@ -1,0 +1,38 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Yash Goyal <yashgo0018@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
+    "dev:js": "nodemon -q dist/index.js",
+    "migrate": "prisma migrate",
+    "generate": "prisma generate",
+    "studio": "prisma studio",
+    "watch": "tsc --watch",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@lighthouse-web3/sdk": "^0.3.0",
+    "@prisma/client": "5.7.0",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.9.0",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "viem": "^1.19.11"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/multer": "^1.4.11",
+    "@types/node": "^20.10.4",
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.2",
+    "prisma": "5.7.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  address   String    @id
+  nonce     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Project   Project[]
+}
+
+model Project {
+  slug        String   @id
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userAddress String
+
+  user User @relation(fields: [userAddress], references: [address])
+
+  nftContracts NFTContract[]
+}
+
+model NFTContract {
+  name              String
+  contractAddress   String
+  chainId           Int
+  projectSlug       String
+  abiCID            String
+  metadataSchemaCID String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  project Project @relation(fields: [projectSlug], references: [slug])
+  // NFT     NFT[]
+
+  @@id([contractAddress, chainId])
+}
+
+// model NFT {
+//   id              String   @id
+//   contractAddress String
+//   chainId         Int
+//   tokenId         String
+//   ownerAddress    String
+//   metadata        String   @db.LongText
+//   createdAt       DateTime @default(now())
+//   updatedAt       DateTime @updatedAt
+
+//   contract NFTContract @relation(fields: [contractAddress, chainId], references: [contractAddress, chainId])
+// }

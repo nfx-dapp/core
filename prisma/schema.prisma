@@ -47,6 +47,46 @@ model NFTContract {
   @@id([contractAddress, chainId])
 }
 
+model NFTEventFilters {
+  contractAddress String
+  chainId         Int
+  eventHash       String
+  eventName       String
+  parameterName   String
+
+  @@id([contractAddress, chainId, eventHash, parameterName])
+}
+
+model OutputSchema {
+  contractAddress String
+  chainId         Int
+  mappingName     String
+  jsonName        String
+
+  @@id([contractAddress, chainId, mappingName])
+}
+
+model NFT {
+  contractAddress String
+  chainId         Int
+  tokenId         String
+  isActive        Boolean @default(true)
+
+  @@id([contractAddress, chainId, tokenId])
+}
+
+model NFTDataPoint {
+  contractAddress String
+  chainId         Int
+  tokenId         String
+  blockNumber     Int
+  blockTimestamp  Int
+  traitName       String
+  traitValue      String
+
+  @@id([contractAddress, chainId, tokenId, traitName])
+}
+
 // model NFT {
 //   id              String   @id
 //   contractAddress String

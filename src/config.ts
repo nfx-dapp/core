@@ -1,5 +1,8 @@
-import { ethers } from "ethers";
 import { createPublicClient, defineChain, webSocket, http } from "viem";
+
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const jwtSecret = process.env.JWT_SECRET || "";
 // export const provider = new ethers.WebSocketProvider(process.env.RPC_URL || "");
@@ -7,6 +10,7 @@ export const minBlock = Number(process.env.MIN_BLOCK || "0");
 // export const managerAddress = process.env.MANAGER_ADDRESS || "";
 export const nonceTemplate = process.env.NONCE_TEMPLATE || "The Nonce is: %";
 export const lighthouseApiKey = process.env.LIGHTHOUSE_API_KEY || "";
+export const PORT = process.env.PORT || 8000;
 
 export const mantleTestnet = /*#__PURE__*/ defineChain({
   id: 5001,

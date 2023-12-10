@@ -1,14 +1,13 @@
-import dotenv from "dotenv";
 import express from "express";
 import eventListener from "./EventListener";
 import projectRouter from "./routers/projectRouter";
 import nftContractRouter from "./routers/nftContractRouter";
-
-dotenv.config();
-
-const PORT = process.env.PORT || 8000;
+import authRouter from "./routers/authRouter";
+import { PORT } from "./config";
 
 const app = express();
+
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.json({ message: "The server is listening" });
@@ -28,5 +27,6 @@ app.get("/", (req, res) => {
 
 app.use("/projects", projectRouter);
 app.use("/nft-contracts", nftContractRouter);
+app.use("/auth", authRouter);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
